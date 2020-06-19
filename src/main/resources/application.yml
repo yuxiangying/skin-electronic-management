@@ -1,3 +1,5 @@
+server:
+  port: 8989
 spring:
   datasource:
 #   数据源基本配置
@@ -23,6 +25,14 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 20
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+  thymeleaf:
+          cache: false
+          #check-template-location: true
+          #content-type: text/html
+          encoding: UTF-8
+          mode: HTML5
+          prefix: classpath:/templates/
+          suffix: .html
 mybatis:
   # 指定全局配置文件位置
   config-location: classpath:mybatis/mybatis-config.xml

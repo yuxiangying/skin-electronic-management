@@ -1,0 +1,287 @@
+/*
+===================
+@explain: 系统后台登录页面
+@copyright: Copyright 2012,phpwind.com
+@author: longwenid@gmail.com
+$Id: admin_login.css 22060 2012-12-19 03:01:55Z yanchixia $
+===================
+*/
+*{
+	padding:0;
+	margin:0;
+}
+*::-moz-placeholder {
+    color: #adadad;
+    font-size: 16px;
+    text-indent: 2em;
+}
+html{
+	padding:0;
+	margin:0;
+	background-image: url("../img/login-bg.jpg");
+	background-size: cover;
+	background-repeat:no-repeat;
+	height: 100%;
+}
+body {
+	padding:0;
+	margin:0;
+	font-family:Arial, "Microsoft Yahei";
+}
+body a {
+    color: #5079d9;
+    font-size: 14px;
+    text-decoration: none;
+}
+.mb-0{
+	margin-bottom: 0 !important;
+}
+.fr{
+	float: right;
+}
+.pdlr{
+	padding:0 10px;
+}
+.wrap {
+	background-color: #fff;
+    border-radius: 3px;
+    margin: 14% auto 0;
+    width: 380px;
+}
+.login-logo {
+    /*background-image: url("../img/admin_loginbg.png");*/
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 140px auto;
+    box-shadow: none;
+    height: 92px;
+    margin: 23px 0 25px;
+    padding: 60px 0 0;
+    position: relative;
+}
+h4 {
+    border-bottom: 0 none;
+    bottom: 0;
+    box-shadow: none;
+    color: #333;
+    font-weight: 400;
+    height: auto;
+    line-height: 1em;
+    margin: 0;
+    padding: 0;
+    font-size: 28px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    font-weight:bold;
+    color: #f05da3;
+}
+form {
+    padding: 0 30px 30px;
+}
+.form-group {
+	margin-bottom: 25px;
+    position: relative;
+}
+.form-group i{
+	display: inline-block;
+	position: absolute;
+	top:1px;
+	left:1px;
+    border-radius: 6px 0 0 6px;
+    border-right: 1px solid #ccc;
+    box-shadow: 1px 0 3px -1px rgba(0, 0, 0, 0.1);
+    height: 46px;
+    overflow: hidden;
+    width: 46px;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0) url("../img/dialog-input-icons_e7e327a2b8.png") no-repeat scroll 0 0;
+}
+.form-group i.user{
+	background-position: -2px 0;
+}
+.form-group i.psd{
+	background-position: -48px 0;
+}
+.form-group i.code{
+	background-position: -145px 0;
+}
+form input, form textarea, form select {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-family: "Microsoft YaHei",Arial,sans-serif;
+    padding: 0 8px;
+}
+form label, form input, form select, form .filed, form textarea {
+    display: inline-block;
+    font-size: 16px;
+}
+form input, form select {
+    height: 46px;
+    line-height: 46px;
+}
+form input {
+	background: #fff none repeat scroll 0 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    position: relative;
+    padding-left: 67px;
+    vertical-align: unset;
+    width:243px;
+}
+form .fl {
+    float: left;
+}
+form .fr {
+    float: right;
+}
+form .group-single{
+	width:100%;
+	height: 44px;
+}
+form a.forget-pwd, form a.reg {
+	line-height: 44px;
+	font-size: 13px;
+}
+form img {
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top:1px;
+    border-radius: 0 6px 6px 0;
+}
+#login_btn_wraper {
+	text-align: center;
+}
+
+#login_btn_wraper .tips_success {
+	color: #0093dd;
+}
+
+#login_btn_wraper .tips_error {
+	color: #d16d62;
+}
+
+#login_btn_wraper button:focus {
+	outline: none;
+}
+.control-group{
+	width: 248px;
+	margin:0 auto;
+}
+.control-group ul {
+    padding-left: 0;
+    width: 100%;
+}
+.control-group ul li{
+	list-style: none;
+	float: left;
+	width:50%;
+}
+.control-group ul li a{
+	font-size:14px;
+	text-decoration: none;
+}
+form input:focus {
+    border: 1px solid #f05da3;
+}
+#login_btn_wraper .tips_error, #login_btn_wraper .tips_success {
+	display: inline-block;
+    margin-top: 20px;
+}
+.btn {
+    border: 1px solid #f05da3;
+    background: #f05da3;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 24px;
+    height: 44px;
+    letter-spacing: 15px;
+    padding: 0;
+    width:100%;
+}
+.btn:hover {
+    background: #1aa98e;
+}
+.placeholder{
+	color:#999;
+}
+/*登录框动画*/
+@-webkit-keyframes bounceIn {
+	0% {
+		opacity: 0;
+		-webkit-transform: scale(.3);
+	}
+
+	50% {
+		opacity: 1;
+		-webkit-transform: scale(1.05);
+	}
+
+	70% {
+		-webkit-transform: scale(.9);
+	}
+
+	100% {
+		-webkit-transform: scale(1);
+	}
+}
+@-moz-keyframes bounceIn {
+	0% {
+		opacity: 0;
+		-moz-transform: scale(.3);
+	}
+
+	50% {
+		opacity: 1;
+		-moz-transform: scale(1.05);
+	}
+
+	70% {
+		-moz-transform: scale(.9);
+	}
+
+	100% {
+		-moz-transform: scale(1);
+	}
+}
+@-o-keyframes bounceIn {
+	0% {
+		opacity: 0;
+		-o-transform: scale(.3);
+	}
+
+	50% {
+		opacity: 1;
+		-o-transform: scale(1.05);
+	}
+
+	70% {
+		-o-transform: scale(.9);
+	}
+
+	100% {
+		-o-transform: scale(1);
+	}
+}
+@keyframes bounceIn {
+	0% {
+		opacity: 0;
+		transform: scale(.3);
+	}
+
+	50% {
+		opacity: 1;
+		transform: scale(1.05);
+	}
+
+	70% {
+		transform: scale(.9);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}

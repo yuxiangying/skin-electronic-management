@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>后台管理</title>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand"/>
+    <meta name="robots" content="noindex,nofollow" />
+    <link href="/css/login.css" rel="stylesheet" />
+</head>
+<body>
+<style>
+    .odd{
+        display: none;
+    }
+    .even{
+        display: inline-block;
+    }
+</style>
+<div class="wrap" style="height: 100%;">
+    <div class="login-logo">
+        <h4>美妆-后台</h4>
+    </div>
+    <form method="post" name="login" id="form-login" action="/login/verify"
+          autoComplete="off" class="js-ajax-form">
+        <div class="form-group">
+            <i class="user"></i>
+            <input class="input" id="js-admin-name" required name="usercode" type="text"  autoComplete="off"  placeholder="请输入用户名称" />
+        </div>
+        <div class="form-group">
+            <i class="psd"></i>
+            <input class="input" id="admin_pwd" type="password" required name="password" autoComplete="off" placeholder="请输入登录密码"  />
+        </div>
+        <div class="form-group">
+            <span th:text="${msg}" style="color: #c71c22;" th:class="${msg}? 'even' : 'odd'"></span>
+        </div>
+        <div id="login_btn_wraper" class="form-group">
+            <input type="button" id="login-btn" name="login-btn" class="btn js-ajax-submit" value="登录" />
+        </div>
+    </form>
+</div>
+<script src="/layer/jquery-3.4.1.min.js"></script>
+<script>
+    $(function(){
+        document.getElementById('js-admin-name').focus();
+        $("#login-btn").click(function(){
+            // 清除缓存
+            localStorage.removeItem("role_menus");
+            var form = document.getElementById("form-login");
+            $(form).submit();
+        });
+    });
+</script>
+</body>
+</html>
