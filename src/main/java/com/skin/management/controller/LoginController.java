@@ -10,6 +10,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -18,7 +19,7 @@ public class LoginController {
     private AUserService aUserService;
 
 
-    @RequestMapping("/login")
+    @RequestMapping({"/login","/"})
     public String login() {
         return "login";
     }
@@ -38,5 +39,13 @@ public class LoginController {
             modelAndView.addObject("msg", "用户名或密码错误!");
         }
         return  modelAndView;
+    }
+
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpSession httpSession = servletRequestAttributes.getRequest().getSession();
+        httpSession.removeAttribute("userName");
+        return "login";
     }
 }

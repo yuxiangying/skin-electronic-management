@@ -363,4 +363,15 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByRoleIds" resultMap="BaseResultMap">
+    select distinct m.* from admin_role r left join admin_role_menu rm on r.id = rm.role_id left join admin_menu m on rm.menu_id = m.id
+    where r.is_delete = '0' and rm.is_delete = '0' and m.is_delete = '0' and  r.id in
+    <foreach collection="roleIdList" item="id" index="index" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+    <if test="level != null and level !=''">
+      and m.type &lt;= ${level}
+    </if>
+  </select>
 </mapper>

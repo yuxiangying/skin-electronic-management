@@ -2,9 +2,256 @@
 <html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>美妆后台</title>
+    <title>英美商城</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="icon" href="../../favicon.ico"/>
+    <link type="text/css" rel="styleSheet"  href="/assets/css/left.css" />
+    <link type="text/css" rel="styleSheet"  href="/assets/css/tab.css" />
+
+    <script src="/assets/layer/jquery-3.4.1.min.js"></script>
+    <script src="/assets/js/index.js"></script>
 </head>
 <body>
-    <div>dddd</div>
+<style>
+    html,body{
+        width:100%;
+        height:100%;
+    }
+
+    .main-content {
+        min-height: 100%;
+        padding: 0;
+        margin-top: 0;
+        margin-right: 0;
+        margin-left: 180px;
+        color:black;
+    }
+
+    .tab-content{
+        position:absolute;
+        left:180px;
+        width:90%;
+        height: 100%;
+    }
+
+    .macro-component-tabclose{
+        background-image: url(/assets/img/acrossTab-close.png);
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        display: block;
+        font-size: 0;
+        height: 13px;
+        line-height: 0;
+        margin-top: -6px;
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        width: 13px;
+    }
+    html {
+        overflow-y: hidden;
+    }
+
+</style>
+
+<div class="main-container">
+
+    <div class="sidebar" id="sidebar">
+        <div id="nav_wraper" style="height: 1077px; overflow: auto;">
+            <div class="brand-panel">
+                <a href="#" class="brand" onclick="openMenus(this)" code="homePage">英美商城</a>
+
+            </div>
+            <ul id="aat">
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="dislpayArrow hidden-xs" id="display-hidden">
+        <a id="pngfix"  href="javascript:void(0);" value="display-btn" onclick="displaynavbar(this)"></a>
+    </div>
+
+    <div class="main-content" id="main-content">
+       <div style="width: 100%;background-color: #F5F5F5;height: 50px;">
+           <div class="tabs" id="tabs">
+           </div>
+           <div class="tabs" style="width:100px" id="tabs-logout">
+               <div class="tab-2" >
+                   <label  code="logout" onclick="logout()">退出</label>
+               </div>
+           </div>
+       </div>
+    </div>
+
+</div>
+
+
+<script>
+    var tabIndex = 1;
+    var curDivId;
+    var loginUser;
+    $(function() {
+        var src= '<a onclick="openMenus(this)" code="homePage">首页工作台</a>';
+        debugger;
+        renderLeftMenus();
+        renderRoleMenu();
+        openMenus(src);
+//				 nav收缩展开
+        $('#aat').on('click','.nav-item>a',function(){
+            if (!$('.nav').hasClass('nav-mini')) {
+                if ($(this).next().css('display') == "none") {
+                    //展开未展开
+                    $('.nav-item').children('ul').slideUp(300);
+                    $(this).next('ul').slideDown(300);
+                    $(this).parent('li').addClass('nav-show').siblings('li').removeClass('nav-show');
+                }else{
+                    //收缩已展开
+                    $(this).next('ul').slideUp(300);
+                    $('.nav-item.nav-show').removeClass('nav-show');
+                }
+            }
+        });
+//				 标志点击样式
+        $('#aat').on('click','.nav-item>ul>li',function(){
+            $(this).addClass("act").siblings().removeClass("act");
+            $(this).parents(".nav-item").siblings().find(">ul>li").removeClass("act");
+        });
+
+        $.get('/manage/aUser/getUser',function (result) {
+            if (result!=null){
+                loginUser=result;
+            } else{
+                loginUser="用户错误";
+            }
+        });
+    });
+
+    /*
+     * 选中tab页时
+     */
+    function chooseTab(src){
+        if(null!=curDivId) {
+            $("#" + curDivId).css("display", "none");
+            $("#" + curDivId).parent().css("border-bottom", "none");
+        }
+        curDivId = $(src).parent().children("div").eq(0).attr("id");
+        $("#"+curDivId).css("display","block");
+        $("#"+curDivId).parent().children("label").eq(0).parent().css("border-bottom","2px solid blue");
+    }
+
+    /*
+     * 关闭tab页
+     */
+    function closeTab(src){
+        $(src).parent().remove();
+    }
+
+    /*
+     * 请求菜单操作和角色数据(按钮权限)
+     */
+    function renderRoleMenu(){
+        var roleMenus = localStorage.getItem("role_menus");
+        if(null==roleMenus||""==roleMenus){
+            $.ajax({
+                url:'/manage/aMenu/roleLeftMenus?level=3',
+                /*data:{
+                    "level":"3"
+                },*/
+                type:'get',
+                cache:false,
+                success:function (result) {
+                    var role_menusStr = "";
+                    for(var i=0;i<result.length;i++){
+                        role_menusStr += result[i].id+","+result[i].menuCode+","+result[i].parentId+","+result[i].menuName+";";
+                    }
+                    localStorage.setItem("role_menus",role_menusStr.substr(0,role_menusStr.length-1));
+
+                }
+            });
+        }
+    }
+
+    /*
+     * 请求左边菜单树
+     */
+    function renderLeftMenus(){
+        $.ajax({
+            url:'/manage/aMenu/roleLeftMenus?level='+"2",
+            type:'get',
+            cache:false,
+            success:function (result) {
+                var html='';
+                var num=-1;
+                if (result!=null&&result.length>0){
+                    var imgArr = ["&#8369;","&#10040;","&#9814","&#10047","&#9770;","&#2638;","&#10049;","&#8364;","&#8631;","&#9733;","&#9672;","&#10022;"];
+                    for (var i=0;i<result.length;i++){
+                        if (result[i].type=='1'){
+                            num++;
+                            var childHtml='<ul>';
+                            var parentStartHtml='<li class="nav-item"><a href="#" class="menus" id="sys_set"><i class="my-icon nav-icon icon_1">'+imgArr[num]+'</i><span>'+result[i].menuName+'</span><i class="my-icon nav-more"></i></a>'
+                            for(var j=0;j<result.length;j++){
+                                if (result[j].parentId==result[i].id&&result[j].type=='2'){
+                                    childHtml+='<li><a href="#" onclick="openMenus(this)"  code="'+result[j].menuCode+'" ><span class="tab-page"  ></span>'+result[j].menuName+'</a></li>';
+                                }
+                            }
+                            childHtml+="</ul></li>";
+                            parentStartHtml+=childHtml;
+                            html+=parentStartHtml;
+                        }
+                    }
+                }else{
+                    html='<li class="nav-item"><a href="#" class="menus" id="sys_set"><span>没有权限列表</span></a></li>';
+                }
+                $('#aat').html(html);
+
+            }
+        });
+
+    }
+
+    function openMenus(src) {
+        var tabCode = $(src).attr("code");
+        var tabPage = $("label[code='"+tabCode+"']");
+        var tabName = $(src).text();
+        if(null!=tabPage&&tabPage.length>0){        //  tab页已经打开
+            if(null!=curDivId) {
+                $("#" + curDivId).css("display", "none");
+                $("#" + curDivId).parent().css("border-bottom", "none");
+            }
+            curDivId = "div-"+tabCode;
+            $("#"+curDivId).css("display","block");
+            $("#"+curDivId).parent().css("border-bottom","2px solid blue");
+        }else{
+            if(null!=curDivId){
+                $("#"+curDivId).css("display","none");
+                $("#"+curDivId).parent().css("border-bottom","none");
+            }
+            tabIndex++;
+            var tabTxt = " <div class=\"tab-2\">\n" +
+                "<label for=\"tab2-"+tabIndex+"\" code=\""+tabCode+"\" onclick=\"chooseTab(this)\">"+tabName+"</label>" ;
+            if(tabCode!="homePage"){
+                tabTxt +="<span onclick=\"closeTab(this)\" class=\"close-tab\">&#x2716;</span>";
+            }
+            tabTxt +="<div id=\"div-"+tabCode+"\" class=\"tab-content\" style=\"margin-left:0px;display: block;\">" +
+                " </div> </div>";
+            $("#tabs").append(tabTxt);
+            $("#div-"+tabCode).html("<object type='text/html' data='/assets/html/"+tabCode.replace(/-/,"/")+".html' width='100%' height='100%'></object>");
+            // 设置当前tab选中
+            $("label[code='"+tabCode+"']").eq(0).parent().css("border-bottom","2px solid blue");
+            curDivId = "div-"+tabCode;
+        }
+    }
+
+    function logout(){
+        window.location.href="/logout";
+    }
+
+</script>
 </body>
 </html>

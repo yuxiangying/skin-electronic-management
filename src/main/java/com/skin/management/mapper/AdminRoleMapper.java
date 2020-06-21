@@ -93,4 +93,11 @@ public interface AdminRoleMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(AdminRole record);
+
+    /**
+     * 根据账号查询角色
+     * @param userName
+     * @return
+     */
+    List<AdminRole> selectByUserName(String userName);
 }

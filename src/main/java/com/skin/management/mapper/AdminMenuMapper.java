@@ -93,4 +93,11 @@ public interface AdminMenuMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(AdminMenu record);
+
+    /**
+     * 根据角色Id查询菜单
+     * @param roleIdList
+     * @return
+     */
+    List<AdminMenu> selectByRoleIds(@Param("roleIdList") List<Integer> roleIdList,@Param("level") String level);
 }
