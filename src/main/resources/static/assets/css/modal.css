@@ -1,0 +1,101 @@
+/*
+.modal {
+    position: absolute;
+    width: 1440px;
+    height: 820px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 10003;
+    border-radius: 6px;
+    !*background-image: url("image/white.jpg");*!
+    background: rgb(255, 247, 247);
+}
+*/
+
+
+.modal {
+    position: absolute;
+    width: 1200px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 10003;
+    border-radius: 6px;
+    /*background-image: url("image/white.jpg");*/
+    background: rgb(255, 247, 247);
+}
+
+.overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 10001;
+    display: none;
+    filter: alpha(opacity=60);
+    background-color: #777;
+    opacity: 0.5;
+    -moz-opacity: 0.5;
+}
+
+/*.d-content{
+    margin-top:10px;
+    height: 750px;
+    overflow-y: auto;
+}*/
+.d-content{
+    margin-top:10px;
+    overflow-y: auto;
+}
+
+.d-line{
+    margin-bottom:5px;
+}
+
+/*.modal-in{
+    position: absolute;
+    width: 1140px;
+    height: 720px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 20003;
+    border-radius: 6px;
+    !*background-image: url("image/white.jpg");*!
+    background: rgb(255, 247, 247);
+}*/
+/*.modal-in{
+    position: absolute;
+    width: 85%;
+    height: 720px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 20003;
+    border-radius: 6px;
+    !*background-image: url("image/white.jpg");*!
+    background: rgb(255, 247, 247);
+}*/
+.modal-in{
+    position: absolute;
+    width: 1000px;
+    height: 550px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 20003;
+    border-radius: 6px;
+    /*background-image: url("image/white.jpg");*/
+    background: rgb(255, 247, 247);
+}
+.overlay-in{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 15001;
+    display: none;
+    filter: alpha(opacity=60);
+    background-color: #777;
+    opacity: 0.5;
+    -moz-opacity: 0.5;
+}
