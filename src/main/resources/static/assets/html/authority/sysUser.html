@@ -1,10 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
+<html  lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>sysMenu</title>
+    <link type="text/css" rel="styleSheet"  href="/assets/css/common.css" />
+    <link type="text/css" rel="styleSheet"  href="/assets/css/modal.css" />
+    <link type="text/css" rel="styleSheet"  href="/assets/css/alertify.css" />
+    <script src="/assets/layer/modal.js"></script>
+    <script src="/assets/layer/jquery-3.4.1.min.js"></script>
+    <script src="/assets/layer/alertify.js"></script>
+
+    <script src="/assets/js/sysUser.js"></script>
+    <style>
+        html,body{
+            width:100%;
+            height:100%;
+        }
+        input{
+            font-size: 10px;
+            font-weight: lighter;
+        }
+        tr th:first-child{
+              width: 60px;
+          }
+
+        .d-content label{
+            width: 150px;
+        }
+        .d-content div{
+           margin-top: 20px;
+        }
+       span{
+            color: #FF0000;
+            font-size:12px
+        }
+    </style>
 </head>
 <body>
-    <div>sysMenu</div>
+<div  class="wrap">
+    <div class="h-sea">
+        <label class="ele-sea">角色:</label>
+        <select class="in-wid" id="sea_role" style="width: 90px;">
+            <option value="">全部角色</option>
+            <option value="0">管理员</option>
+            <option value="1">会员</option>
+            <option value="2">普通用户</option>
+        </select>
+        <select class="in-wid ele-sea" id="sea_condition"  style="width: 90px;">
+            <option value="">综合查询</option>
+            <option value="userName">用户名</option>
+            <option value="phone">电话</option>
+            <option value="realName">姓名</option>
+        </select>
+        <input type="text" id="sea_content" class="in-wid"/>
+        <input type="button" id="search" class="button1 btn-margin" value="查询" onclick="search()"/>
+        <input type="button" class="button1 btn-margin" value="清空" id="data_clear" onclick="data_clear()"/>
+    </div>
+    <div class="bk-gray">
+        <a class="btn-primary btn-add menus" id="user_btn_add" href="javascript:;" onclick="btn_add()">
+            <i class="Hui-iconfont fa fa-add-o"></i>
+            新增
+        </a>
+        <a class="btn-primary btn-mod menus" id="user_btn_edit" href="javascript:;" onclick="btn_edit()">
+            <i class="Hui-iconfont fa fa-mod-o"></i>
+            编辑
+        </a>
+        <a class="btn-primary btn-del" id="user_btn_del" href="javascript:;" onclick="btn_del()">
+            <i class="Hui-iconfont fa fa-trash-o" ></i>
+            删除
+        </a>
+    </div>
+
+    <div class="data-content">
+        <table width="100%" style="border:none;">
+            <thead>
+            <tr>
+                <th></th>
+                <th style="border-bottom:none;padding-top:5px;">序号</th>
+                <th style="border-bottom:none;padding-top:5px;">用户名</th>
+                <th style="border-bottom:none;padding-top:5px;">注册日期</th>
+                <th style="border-bottom:none;padding-top:5px;">手机号</th>
+                <!--<th style="border-bottom:none;padding-top:5px;">订单</th>
+                <th style="border-bottom:none;padding-top:5px;">消费额</th>
+                <th style="border-bottom:none;padding-top:5px;">上个订单</th>
+                <th style="border-bottom:none;padding-top:5px;">角色</th>-->
+            </tr>
+            </thead>
+            <tbody id="t-data-body">
+
+            </tbody>
+
+        </table>
+    </div>
+
+    <div id="t-data-page-tr" class="pageStyle">
+        <ul class="pagination" id="t-data-page"></ul>
+    </div>
+
+    <!-- 模拟模态窗口DIV -->
+    <div class="modal" id="modalDiv">
+        <h3 class="s-title">添加新用户</h3>
+        <div class="d-bulk">
+            <div class="d-content">
+                <div  class="d-line">
+                    <label class="ele-l">用户名(不支持中文):</label>
+                    <input id="add_userName" name="add_userName" placeholder="请输入您的用户名"  onfocus="YHMonfocu()" onblur="YHMonblus()" />
+                    <input name="required" type="text" value="*" class="input-tag" readonly/>
+                    <span id="YHMerror"> </span>
+                </div>
+                <div  class="d-line">
+                    <label class="ele-l">联系电话:</label>
+                    <input id="add_phone" name="add_phone" placeholder="请输入您的联系电话"  onfocus="LXDHonfocu()" onblur="LXDHonblus()"/>
+                    <span id="LXDHerror"></span>
+                </div>
+                <div  class="d-line">
+                    <label class="ele-l">姓名:</label>
+                    <input id="add_realName" name="add_realName" placeholder="请输入您的姓名"/>
+                </div>
+                <div  class="d-line">
+                    <label class="ele-l">电子邮件:</label>
+                    <input id="add_emil" name="add_emil" placeholder="请输入您的电子邮箱" onfocus="DZYXonfocu()" onblur="DZYXonblus()"/>
+                    <input name="required" type="text" value="*" class="input-tag" readonly/>
+                    <span id="DZYXerror"></span>
+                </div>
+                <div  class="d-line">
+                    <label class="ele-l">密码:</label>
+                    <input type="password" id="add_password" name="add_password"  placeholder="请输入您的密码" onfocus="MMonfocu()" onblur="MMonblus()"/>
+                    <input name="required" type="text" value="*" class="input-tag" readonly/>
+                    <span id="MMerror"> </span>
+                </div>
+                <div  class="d-line">
+                    <label class="ele-l">确认密码:</label>
+                    <input type="password"  id="add_confirmPassword" name="add_confirmPassword"  placeholder="请确认您的密码" onfocus="QRMMonfocu()" onblur="QRMMonblus()"/>
+                    <input name="required" type="text" value="*" class="input-tag" readonly/>
+                    <span id="QRMMerror"></span>
+                </div>
+                <div  class="d-line"><label class="ele-l">角色:</label>
+                    <select id="add_role" style="width: 90px;">
+                        <option value="0">管理员</option>
+                        <option value="1">会员</option>
+                        <option value="2">普通用户</option>
+                    </select></div>
+            </div>
+        </div>
+
+        <div class="d-bulk d-btn">
+            <button class="button1 btn-margin" id="b-submit" onclick="save()">保存</button>
+            <button class="button1 btn-margin btn-close" id="b-cancel">取消</button>
+        </div>
+    </div>
+</div>
+
+
 </body>
 </html>

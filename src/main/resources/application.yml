@@ -1,6 +1,9 @@
 server:
   port: 8989
 spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   datasource:
 #   数据源基本配置
     username: yuxy
@@ -42,3 +45,8 @@ mybatis:
 #    schema:
 #      - classpath:sql/department.sql
 #      - classpath:sql/employee.sql
+
+#打印sql日志
+logging:
+    level:
+      com.skin.management.mapper: DEBUG

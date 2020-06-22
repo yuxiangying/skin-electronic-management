@@ -13,6 +13,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Slf4j
 @Service("aUserService")
@@ -66,5 +67,10 @@ public class AUserServiceImpl implements AUserService {
             return currUser;
         }
         return null;
+    }
+
+    @Override
+    public List<AdminUser> selectAll(AdminUser adminUser) {
+        return adminUserMapper.selectAll(adminUser);
     }
 }

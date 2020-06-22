@@ -2,6 +2,7 @@ package com.skin.management.service;
 
 import com.skin.management.entity.AdminUser;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,4 +19,6 @@ public interface AUserService {
      * @return
      */
     AdminUser getUser();
+
+    List<AdminUser> selectAll(AdminUser adminUser);
 }

@@ -95,4 +95,6 @@ public interface AdminUserMapper {
     int updateByPrimaryKey(AdminUser record);
     //根据账号查询用户
     AdminUser selectByName(String userName);
+    //根据实体查询所有
+    List<AdminUser> selectAll(AdminUser adminUser);
 }

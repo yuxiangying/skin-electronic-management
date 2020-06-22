@@ -417,4 +417,45 @@
     from admin_user
     where is_delete = '0' and user_name = #{userName,jdbcType=VARCHAR}
   </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from admin_user
+    where is_delete = '0'
+    <if test="userName != null and userName != ''">
+     and user_name LIKE concat('%',#{userName},'%')
+    </if>
+    <if test="password != null and password !=''">
+      and password = #{password,jdbcType=VARCHAR}
+    </if>
+    <if test="salt != null and salt != ''">
+      and salt = #{salt,jdbcType=VARCHAR}
+    </if>
+    <if test="realName != null and realName != ''">
+      and real_name  LIKE concat('%',#{realName},'%')
+    </if>
+    <if test="avatar != null and avatar != ''">
+      and avatar = #{avatar,jdbcType=VARCHAR}
+    </if>
+    <if test="phone != null and phone != ''">
+      and phone   LIKE concat('%',#{phone},'%')
+    </if>
+    <if test="email != null and email != ''">
+      and email = #{email,jdbcType=VARCHAR}
+    </if>
+    <if test="sex != null and sex != ''">
+      and sex = #{sex,jdbcType=VARCHAR}
+    </if>
+    <if test="createUser != null and createUser != ''">
+      and create_user = #{createUser,jdbcType=VARCHAR}
+    </if>
+    <if test="createTime != null">
+      and create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updateUser != null and updateUser != ''">
+      and update_user = #{updateUser,jdbcType=VARCHAR}
+    </if>
+    <if test="updateTime != null">
+      and update_time = #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+  </select>
 </mapper>
